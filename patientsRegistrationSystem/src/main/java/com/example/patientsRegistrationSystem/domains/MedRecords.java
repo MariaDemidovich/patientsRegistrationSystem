@@ -1,13 +1,13 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
-import com.example.patientsRegistrationSystem.domains.Patient;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "med_records")
+@Table(name = "med_records", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,18 +17,23 @@ public class MedRecords {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
     private Patient patient;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private com.example.patientsregistrationsystem.domain.Doctor doctor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
+    private Doctor doctor;
 
-    private String data;
+    @Column(nullable = false)
+    private LocalDateTime data;
+
+    @Column(nullable = false, length = 500)
     private String diagnosis;
+
+    @Column(nullable = false, length = 1000)
     private String treatment;
 
-    @OneToMany(mappedBy = "medRecords", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.TestResults> testResults;
+    @OneToMany(mappedBy = "medRecords", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<TestResults> testResults;
 }

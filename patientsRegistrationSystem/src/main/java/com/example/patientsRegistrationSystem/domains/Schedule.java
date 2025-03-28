@@ -1,12 +1,11 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "schedules")
+@Table(name = "schedule", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,11 +15,11 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false)
-    private com.example.patientsregistrationsystem.domain.Doctor doctor;
+    private Doctor doctor;
 
-    private Date date;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime date;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

@@ -1,4 +1,4 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "doctors")
+@Table(name = "doctor", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,17 +16,28 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullname;
+    private FullName fullName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
-    private String major;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.MedRecords> medRecords;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Major major;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.Schedule> schedules;
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MedRecords> medRecords;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.Appointment> appointments;
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Schedule> schedules;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Appointment> appointments;
+}
+
+enum Major {
+    CARDIOLOGY, NEUROLOGY, ORTHOPEDICS, PEDIATRICS, GENERAL_PRACTICE
 }

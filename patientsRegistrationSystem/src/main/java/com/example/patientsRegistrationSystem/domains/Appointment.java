@@ -1,11 +1,10 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
-import com.example.patientsRegistrationSystem.domains.Patient;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "appointments")
+@Table(name = "appointments", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,17 +14,21 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id", nullable = false)
     private Patient patient;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private com.example.patientsregistrationsystem.domain.Doctor doctor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id", nullable = false)
+    private Doctor doctor;
 
-    @ManyToOne
-    @JoinColumn(name = "schedule_id", nullable = false)
-    private com.example.patientsregistrationsystem.domain.Schedule schedule;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
+    private Schedule schedule;
 
-    private String status;
+    private Status status;
+}
+
+enum Status {
+    SCHEDULED, COMPLETED, CANCELLED
 }

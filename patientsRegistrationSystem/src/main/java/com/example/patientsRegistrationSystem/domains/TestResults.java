@@ -1,10 +1,10 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "test_results")
+@Table(name = "test_results", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,10 +14,9 @@ public class TestResults {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medRecords_id", nullable = false)
-    private com.example.patientsregistrationsystem.domain.MedRecords medRecords;
-
+    private MedRecords medRecords;
     private String testType;
     private String results;
     private String data;

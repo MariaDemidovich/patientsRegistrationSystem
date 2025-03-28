@@ -1,21 +1,34 @@
-package com.example.patientsregistrationsystem.domain;
+package com.example.patientsRegistrationSystem.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "admins")
+@Table(name = "admin", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Admin {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullname;
+    @Embedded
+    private FullName fullName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
-    private String accessLevel;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AccessLevel accessLevel;
+}
+
+enum AccessLevel {
+    USER, DOCTOR, ADMIN;
 }

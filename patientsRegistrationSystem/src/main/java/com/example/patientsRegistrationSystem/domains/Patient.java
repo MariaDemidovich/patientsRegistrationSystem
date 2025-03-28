@@ -2,11 +2,11 @@ package com.example.patientsRegistrationSystem.domains;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "patients")
+@Table(name = "patients", schema = "public")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,15 +16,24 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullname;
+    @Embedded
+    private FullName fullName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
-    private String dateOfBirth;
+
+    @Column(nullable = false)
+    private LocalDate dateOfBirth;
+
+    @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.MedRecords> medRecords;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MedRecords> medRecords;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<com.example.patientsregistrationsystem.domain.Appointment> appointments;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Appointment> appointments;
 }
