@@ -16,6 +16,7 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Embedded
     private FullName fullName;
 
     @Column(nullable = false, unique = true)
@@ -36,8 +37,4 @@ public class Doctor {
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Appointment> appointments;
-}
-
-enum Major {
-    CARDIOLOGY, NEUROLOGY, ORTHOPEDICS, PEDIATRICS, GENERAL_PRACTICE
 }

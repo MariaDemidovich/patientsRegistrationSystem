@@ -17,7 +17,7 @@ public class TestResults {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medRecords_id", nullable = false)
     private MedRecords medRecords;
-    private String testType;
+    private TestType testType;
     private String results;
     private String data;
 }

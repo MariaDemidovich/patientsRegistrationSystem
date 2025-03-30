@@ -26,9 +26,7 @@ public class Appointment {
     @JoinColumn(name = "schedule_id", referencedColumnName = "id", nullable = false)
     private Schedule schedule;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Status status;
-}
-
-enum Status {
-    SCHEDULED, COMPLETED, CANCELLED
 }

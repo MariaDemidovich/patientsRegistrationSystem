@@ -28,7 +28,3 @@ public class Admin {
     @Column(nullable = false)
     private AccessLevel accessLevel;
 }
-
-enum AccessLevel {
-    USER, DOCTOR, ADMIN;
-}
