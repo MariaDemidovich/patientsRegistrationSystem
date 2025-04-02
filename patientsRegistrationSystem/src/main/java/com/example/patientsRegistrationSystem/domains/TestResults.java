@@ -17,6 +17,8 @@ public class TestResults {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medRecords_id", nullable = false)
     private MedRecords medRecords;
+
+    @Enumerated(EnumType.STRING)
     private TestType testType;
     private String results;
     private String data;
