@@ -1,5 +1,6 @@
 package com.example.patientsRegistrationSystem.domains;
 
+import com.example.patientsRegistrationSystem.common.TestType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +16,7 @@ public class TestResults {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medRecords_id", nullable = false)
+    @JoinColumn(name = "medRecords_id", referencedColumnName = "id", nullable = false)
     private MedRecords medRecords;
 
     @Enumerated(EnumType.STRING)

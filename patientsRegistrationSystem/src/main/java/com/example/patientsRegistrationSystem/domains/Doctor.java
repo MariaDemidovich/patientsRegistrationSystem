@@ -1,5 +1,6 @@
 package com.example.patientsRegistrationSystem.domains;
 
+import com.example.patientsRegistrationSystem.common.Major;
 import jakarta.persistence.*;
 import lombok.*;
 
