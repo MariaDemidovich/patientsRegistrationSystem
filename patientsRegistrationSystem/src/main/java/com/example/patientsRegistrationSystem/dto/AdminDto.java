@@ -1,5 +1,7 @@
 package com.example.patientsRegistrationSystem.dto;
 
+import com.example.patientsRegistrationSystem.common.AccessLevel;
+import com.example.patientsRegistrationSystem.domains.FullName;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,5 +9,7 @@ import lombok.Data;
 @Builder
 public class AdminDto {
     private Long id;
-//    TODO add more fields from Admin entity
+    private FullName fullName;
+    private String email;
+    private AccessLevel accessLevel;
 }
